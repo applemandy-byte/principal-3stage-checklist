@@ -1,0 +1,114 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="theme-color" content="#1f6feb" />
+  <title>初任校長三階段電子檢核表｜Open Source</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="app-shell">
+    <section id="authView" class="auth-card">
+      <div class="brand-mark">校</div>
+      <h1>初任校長三階段電子檢核表</h1>
+      <p class="subtitle">Open Source 網站版｜登入後建立個人化檢核紀錄、補充策略、備註筆記與附件。</p>
+      <div id="modeBadge" class="mode-badge">讀取中</div>
+
+      <div class="auth-tabs" role="tablist" aria-label="登入與註冊">
+        <button id="loginTab" class="active" type="button">登入</button>
+        <button id="registerTab" type="button">建立帳號</button>
+      </div>
+
+      <form id="loginForm" class="auth-form">
+        <label>帳號 Email
+          <input id="loginEmail" type="email" autocomplete="username" placeholder="name@example.com" required />
+        </label>
+        <label>密碼
+          <input id="loginPassword" type="password" autocomplete="current-password" placeholder="請輸入密碼" required />
+        </label>
+        <button class="primary full" type="submit">登入檢核表</button>
+      </form>
+
+      <form id="registerForm" class="auth-form hidden">
+        <label>姓名／顯示名稱
+          <input id="registerName" type="text" autocomplete="name" placeholder="例如：Mandy 校長" required />
+        </label>
+        <label>帳號 Email
+          <input id="registerEmail" type="email" autocomplete="username" placeholder="name@example.com" required />
+        </label>
+        <label>密碼
+          <input id="registerPassword" type="password" autocomplete="new-password" minlength="6" placeholder="至少 6 碼" required />
+        </label>
+        <button class="primary full" type="submit">建立我的檢核帳號</button>
+      </form>
+      <p class="hint">本檔案可直接放到 GitHub Pages、Netlify 或學校網站。未設定 Supabase 時為本機示範模式，不適合正式多人共同使用。</p>
+      <div id="authMessage" class="message" aria-live="polite"></div>
+    </section>
+
+    <section id="appView" class="hidden">
+      <header class="topbar">
+        <div>
+          <div class="eyebrow">Open Source Checklist</div>
+          <h1>初任校長三階段電子檢核表</h1>
+          <p>三階段可編輯、狀態勾稽、補充策略、備註筆記與手動附件管理。</p>
+        </div>
+        <div class="user-panel">
+          <div id="userLabel" class="user-label"></div>
+          <div id="saveLabel" class="save-label">尚未儲存</div>
+          <button id="logoutBtn" class="ghost" type="button">登出</button>
+        </div>
+      </header>
+
+      <nav class="toolbar" aria-label="主要工具列">
+        <button id="stageAll" class="stage-btn active" type="button" data-stage="全部">全部</button>
+        <button class="stage-btn" type="button" data-stage="第一階段">第一階段</button>
+        <button class="stage-btn" type="button" data-stage="第二階段">第二階段</button>
+        <button class="stage-btn" type="button" data-stage="第三階段">第三階段</button>
+        <span class="spacer"></span>
+        <button id="addItemBtn" type="button">新增校本任務</button>
+        <button id="addNoteBtn" type="button">新增補充策略</button>
+        <button id="exportBtn" type="button">匯出備份</button>
+        <label class="file-button">匯入備份<input id="importInput" type="file" accept="application/json" /></label>
+        <button id="resetBtn" class="danger" type="button">恢復預設</button>
+      </nav>
+
+      <section id="stats" class="stats-grid" aria-label="統計總覽"></section>
+
+      <section class="notice">
+        <strong>欄位調整：</strong>本版已去除每項「佐證連結」欄，改以「補充策略與備註筆記」中的手動附件作為檔案補充。附件會跟著登入帳號的檢核資料一起儲存。
+      </section>
+
+      <main class="layout">
+        <section>
+          <div class="section-title">
+            <h2>三階段可編輯檢核項目</h2>
+            <div class="small">狀態：已完成／進行中／規劃中／待解決</div>
+          </div>
+          <div id="itemsContainer" class="items-container"></div>
+        </section>
+
+        <aside class="notes-panel">
+          <div class="section-title">
+            <h2>補充策略與備註筆記</h2>
+            <div class="small">可手動增加附件</div>
+          </div>
+          <div id="notesContainer" class="notes-container"></div>
+        </aside>
+      </main>
+    </section>
+  </div>
+
+  <template id="attachmentTemplate">
+    <div class="attachment-row">
+      <a class="attachment-name" target="_blank" rel="noopener"></a>
+      <span class="attachment-meta"></span>
+      <button type="button" class="mini danger">刪除</button>
+    </div>
+  </template>
+
+  <script src="config.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="app.js"></script>
+</body>
+</html>
