@@ -180,11 +180,23 @@ document.getElementById("googleLoginBtn")?.addEventListener("click", async () =>
         return { id: data.user.id, email: data.user.email, name };
       },
       async login(email, password) {
-        const { data, error } = await client.auth.signInWithPassword({ email, password });
-        if (error) throw error;
-        return { id: data.user.id, email: data.user.email, name: data.user.user_metadata?.display_name || data.user.email };
-      },
-      async logout() { await client.auth.signOut(); },
+  const { data, error } = await client.auth.signInWithPassword({ email, password });
+  if (error) throw error;
+  return { id: data.user.id, email: data.user.email, name: data.user.user_metadata?.display_name || data.user.email };
+},
+async loginWithGoogle() {
+  const redirectTo = window.location.origin + window.location.pathname;
+
+  const { error } = await client.auth.signInWithOAuth({
+    provider: "google",
+    options: {
+      redirectTo
+    }
+  });
+
+  if (error) throw error;
+},
+async logout() { await client.auth.signOut(); },
       async loadData(user) {
         const { data, error } = await client.from("checklist_data").select("data").eq("user_id", user.id).maybeSingle();
         if (error) throw error;
@@ -543,6 +555,20 @@ document.getElementById("googleLoginBtn")?.addEventListener("click", async () =>
         await enterApp(user);
       } catch (err) { setMessage(err.message || String(err)); }
     });
+    $("googleLoginBtn")?.addEventListener("click", async () => {
+  if (state.mode !== "supabase") {
+    setMessage("目前仍是本機示範模式，請先完成 config.js 的 Supabase 設定。");
+    return;
+  }
+
+  setMessage("前往 Google 登入中…", false);
+
+  try {
+    await state.backend.loginWithGoogle();
+  } catch (err) {
+    setMessage("Google 登入失敗：" + (err.message || String(err)));
+  }
+});
     $("logoutBtn").addEventListener("click", async () => {
       await saveNow();
       await state.backend.logout();
