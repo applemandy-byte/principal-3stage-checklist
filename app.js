@@ -1,7 +1,9 @@
 document.getElementById("googleLoginBtn")?.addEventListener("click", async () => {
- 
+  if (!window.supabaseClient) {
+    alert("尚未啟用 Supabase，請先檢查 config.js。");
+    return;
+  }
   const redirectTo = window.location.origin + window.location.pathname;
-
   const { error } = await window.supabaseClient.auth.signInWithOAuth({
     provider: "google",
     options: {
