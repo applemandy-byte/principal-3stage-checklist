@@ -1,3 +1,22 @@
+document.getElementById("googleLoginBtn")?.addEventListener("click", async () => {
+  if (!window.supabaseClient) {
+    alert("尚未啟用 Supabase，請先檢查 config.js。");
+    return;
+  }
+
+  const redirectTo = window.location.origin + window.location.pathname;
+
+  const { error } = await window.supabaseClient.auth.signInWithOAuth({
+    provider: "google",
+    options: {
+      redirectTo
+    }
+  });
+
+  if (error) {
+    alert("Google 登入失敗：" + error.message);
+  }
+});
 (() => {
   const CONFIG = window.APP_CONFIG || {};
   const MAX_ATTACHMENT_MB = Number(CONFIG.attachmentMaxMB || 2);
