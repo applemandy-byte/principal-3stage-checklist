@@ -3,8 +3,9 @@
 // 2. 填入 Supabase 設定：系統會啟用真正的多人帳號登入與雲端資料同步。
 //    請先依 README.md 建立 Supabase 專案與資料表。
 window.APP_CONFIG = {
-  supabaseUrl: "",
-  supabaseAnonKey: "",
+  const supabaseUrl: "yvpiyqoajhucqrdherqk",
+  const supabaseAnonKey: "sb_publishable_qipAs5g41tYe29wqWsX4eA_F_p-sNUi",
+  const STORAGE_BUCKET = "attachments",
   appName: "初任校長三階段電子檢核表",
   attachmentMaxMB: 2
 };
