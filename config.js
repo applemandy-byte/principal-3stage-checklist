@@ -6,5 +6,5 @@ window.APP_CONFIG = {
   supabaseUrl: "https://yvpiyqoajhucqrdherqk.supabase.co",
   supabaseAnonKey: "sb_publishable_qipAs5g41tYe29wqWsX4eA_F_p-sNUi",
   appName: "初任校長三階段電子檢核表",
-  attachmentMaxMB: 6
+  attachmentMaxMB: 3
 };
