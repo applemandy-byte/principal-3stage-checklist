@@ -41,6 +41,9 @@
           <input id="registerPassword" type="password" autocomplete="new-password" minlength="6" placeholder="至少 6 碼" required />
         </label>
         <button class="primary full" type="submit">建立我的檢核帳號</button>
+        <button id="googleLoginBtn" type="button">
+  使用 Google 帳戶登入
+</button>
       </form>
       <p class="hint">本檔案可直接放到 GitHub Pages、Netlify 或學校網站。未設定 Supabase 時為本機示範模式，不適合正式多人共同使用。</p>
       <div id="authMessage" class="message" aria-live="polite"></div>
@@ -74,11 +77,6 @@
       </nav>
 
       <section id="stats" class="stats-grid" aria-label="統計總覽"></section>
-
-      <section class="notice">
-        <strong>欄位調整：</strong>本版已去除每項「佐證連結」欄，改以「補充策略與備註筆記」中的手動附件作為檔案補充。附件會跟著登入帳號的檢核資料一起儲存。
-      </section>
-
       <main class="layout">
         <section>
           <div class="section-title">
